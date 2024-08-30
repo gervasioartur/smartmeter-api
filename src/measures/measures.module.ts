@@ -18,6 +18,9 @@ import { FindMeasureById } from './application/usecase/FindMeasureById';
 import { UpdateMeasure } from './application/usecase/UpdateMeasure';
 import { FindMeasureByIdService } from './infra/service/FindMeasureById.service';
 import { UpdateMeasureService } from './infra/service/UpdateMeasure.service';
+import { ListCustomerMeasuresService } from './infra/service/ListCustomerMeasures.service';
+import { ListCustomerMeasures } from './application/usecase/ListCustomerMeasures';
+import { ListCustomerMeasuresController } from './api/controller/ListCustomerMeasuresController';
 
 @Module({
   imports: [
@@ -28,7 +31,11 @@ import { UpdateMeasureService } from './infra/service/UpdateMeasure.service';
       },
     ]),
   ],
-  controllers: [UploadMeasureController, ConfirmMeasureController],
+  controllers: [
+    UploadMeasureController,
+    ConfirmMeasureController,
+    ListCustomerMeasuresController,
+  ],
   providers: [
     CreateMeasure,
     IsMeasureRegistered,
@@ -39,12 +46,14 @@ import { UpdateMeasureService } from './infra/service/UpdateMeasure.service';
     ConfirmMeasure,
     FindMeasureById,
     UpdateMeasure,
+    ListCustomerMeasures,
     CreateMeasureService,
     IsMeasureRegisteredService,
     LLMUploadService,
     ReadMeasureFromLlmService,
     FindMeasureByIdService,
     UpdateMeasureService,
+    ListCustomerMeasuresService,
   ],
 })
 export class MeasuresModule {}

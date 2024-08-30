@@ -51,3 +51,21 @@ export type UpdateMeasureParams = {
   id: string;
   measure: MeasureEntity;
 };
+
+export type ListCustomerMeasuresParams = {
+  customerCode: string;
+  measureType?: string;
+};
+
+export type MeasureModel = {
+  measureUuid: string;
+  measureDateTime: Date;
+  measureType: string;
+  hasConfirmed: boolean;
+  imageUrl: string;
+};
+
+export type ListCustomerMeasuresModel = {
+  customerCode: string;
+  measures: MeasureModel[];
+};

@@ -15,7 +15,7 @@ import { HttpError } from '../http/HttpError';
 @ApiTags('Measures')
 @Controller('upload')
 export class UploadMeasureController extends BaseController<UploadMeasureRequest> {
-  constructor(@Inject(UploadMeasure) private usecase: UploadMeasure) {
+  constructor(@Inject() private usecase: UploadMeasure) {
     super();
   }
 
