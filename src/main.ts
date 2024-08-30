@@ -23,6 +23,11 @@ obter a medição através da foto de um medidor`,
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ extended: true, limit: '50mb' }));
   app.useStaticAssets(join(__dirname, '..', 'public'));
-  await app.listen(process.env.PORT);
+  await app.listen(process.env.PORT, () => {
+    console.log(`Running on : http://${process.env.HOST}:${process.env.PORT}`);
+    console.log(
+      `Swagger available on : http://${process.env.HOST}:${process.env.PORT}/swagger-ui/index.html`,
+    );
+  });
 }
 bootstrap();

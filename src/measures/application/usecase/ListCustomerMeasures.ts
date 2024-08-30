@@ -32,6 +32,7 @@ export class ListCustomerMeasures {
       measureUuid: measure.getId(),
       measureDateTime: measure.getMeasureDateTime(),
       measureType: measure.getMeasureType(),
+      measureValue: measure.getMeasureValue(),
       hasConfirmed: measure.getHasConfirmed(),
       imageUrl: measure.getImageUrl(),
     };

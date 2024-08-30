@@ -77,6 +77,7 @@ export class ListCustomerMeasuresController extends BaseController<string> {
       measure_uuid: response.measureUuid,
       measure_datetime: response.measureDateTime,
       measure_type: response.measureType,
+      measure_value: response.measureValue,
       has_confirmed: response.hasConfirmed,
       imageUrl: response.imageUrl,
     };

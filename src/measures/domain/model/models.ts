@@ -61,6 +61,7 @@ export type MeasureModel = {
   measureUuid: string;
   measureDateTime: Date;
   measureType: string;
+  measureValue: number;
   hasConfirmed: boolean;
   imageUrl: string;
 };
