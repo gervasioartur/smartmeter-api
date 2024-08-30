@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { IsMeasureRegisteredGateway } from 'src/application/gateway/IsMeasureRegisteredGateway';
-import { IsRegisteredParams } from 'src/domain/model/models';
 import { MeasureModel } from '../mongo/MeasureModel';
 import { Model } from 'mongoose';
+import { IsMeasureRegisteredGateway } from 'src/measures/application/gateway/IsMeasureRegisteredGateway';
+import { IsRegisteredParams } from 'src/measures/domain/model/models';
 
 @Injectable()
 export class IsMeasureRegisteredService implements IsMeasureRegisteredGateway {

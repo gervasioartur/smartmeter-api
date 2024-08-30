@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { LLMUploadGateway } from '../gateway/LLMUploadGateway';
-import { UploadImageParams } from 'src/domain/model/models';
-import { LLMUploadService } from 'src/infra/service/LLMUpload.service';
+import { LLMUploadService } from 'src/measures/infra/service/LLMUpload.service';
+import { UploadImageParams } from 'src/measures/domain/model/models';
 
 @Injectable()
 export class LLMUpload {

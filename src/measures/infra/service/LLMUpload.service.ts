@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { GEMINIAPIKEY } from '../utils/Key';
-import { InvalidGeminiKeyError } from 'src/domain/error/InvalidGeminiKeyError';
 import { GoogleAIFileManager } from '@google/generative-ai/server';
-import { LLMUploadGateway } from 'src/application/gateway/LLMUploadGateway';
-import { UploadImageParams } from 'src/domain/model/models';
+import { LLMUploadGateway } from 'src/measures/application/gateway/LLMUploadGateway';
+import { UploadImageParams } from 'src/measures/domain/model/models';
+import { InvalidGeminiKeyError } from 'src/measures/domain/error/InvalidGeminiKeyError';
 
 @Injectable()
 export class LLMUploadService implements LLMUploadGateway {

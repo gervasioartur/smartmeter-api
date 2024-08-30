@@ -1,7 +1,7 @@
-import { ReadMeasureFromLLMModel } from 'src/domain/model/models';
+import { ReadMeasureFromLlmService } from 'src/measures/infra/service/ReadMeasureFromLlm.service';
 import { ReadMeasureFromLLMGateway } from '../gateway/ReadMeasureFromLLMGateway';
 import { Inject, Injectable } from '@nestjs/common';
-import { ReadMeasureFromLlmService } from 'src/infra/service/ReadMeasureFromLlm.service';
+import { ReadMeasureFromLLMModel } from 'src/measures/domain/model/models';
 
 @Injectable()
 export class ReadMeasureFromLLM {

@@ -1,12 +1,15 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { UploadMeasureParams, UploadModel } from 'src/domain/model/models';
-import { IsMeasureRegistered } from './IsMeasureRegistered';
-import { DoubleReportError } from 'src/domain/error/DoubleReportError';
 import { LocalUpload } from './LocalUpload';
 import { LLMUpload } from './LLMUpload';
 import { ReadMeasureFromLLM } from './ReadMeasureFromLLM';
 import { CreateMeasure } from './CreateMeasure';
-import { Measure } from 'src/domain/entity/Measure';
+import { IsMeasureRegistered } from './IsMeasureRegistered';
+import { DoubleReportError } from 'src/measures/domain/error/DoubleReportError';
+import { Measure } from 'src/measures/domain/entities/Measure';
+import {
+  UploadMeasureParams,
+  UploadModel,
+} from 'src/measures/domain/model/models';
 
 @Injectable()
 export class UploadMeasure {

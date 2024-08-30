@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { GEMINIAPIKEY } from '../utils/Key';
-import { ReadMeasureFromLLMGateway } from 'src/application/gateway/ReadMeasureFromLLMGateway';
-import { ReadMeasureFromLLMModel } from 'src/domain/model/models';
-import { InvalidGeminiKeyError } from 'src/domain/error/InvalidGeminiKeyError';
 import { GoogleAIFileManager } from '@google/generative-ai/server';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { ReadMeasureFromLLMGateway } from 'src/measures/application/gateway/ReadMeasureFromLLMGateway';
+import { ReadMeasureFromLLMModel } from 'src/measures/domain/model/models';
+import { InvalidGeminiKeyError } from 'src/measures/domain/error/InvalidGeminiKeyError';
 
 @Injectable()
 export class ReadMeasureFromLlmService implements ReadMeasureFromLLMGateway {

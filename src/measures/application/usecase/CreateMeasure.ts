@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Measure } from 'src/domain/entity/Measure';
-import { CreateMeasureService } from 'src/infra/service/CreateMeasure.service';
+import { Measure } from 'src/measures/domain/entities/Measure';
+import { CreateMeasureService } from 'src/measures/infra/service/CreateMeasure.service';
+
 @Injectable()
 export class CreateMeasure {
   constructor(

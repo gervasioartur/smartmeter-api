@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
-import { UploadImageParams } from 'src/domain/model/models';
+import { UploadImageParams } from 'src/measures/domain/model/models';
 
 @Injectable()
 export class LocalUpload {
