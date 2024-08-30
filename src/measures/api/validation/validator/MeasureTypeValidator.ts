@@ -11,7 +11,7 @@ export class MeasureTypeValidator {
   }
 
   validate(): Error | undefined {
-    if (this.fieldValue !== 'WATER' && this.fieldValue !== 'GAS')
+    if (this.fieldValue != 'WATER' && this.fieldValue != 'GAS')
       return new InvalidDataError('image', this.errorMessage);
     return undefined;
   }
