@@ -3,7 +3,6 @@ import { Body, Controller, Inject, Post, Res } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { UploadMeasureRequest } from '../dto/UploadMeasureRequest';
-import { UploadMeasureParams } from '@/measures/domain/model/models';
 import { InvalidDataError } from '@/measures/domain/error/InvalidDataError';
 import { DoubleReportError } from '@/measures/domain/error/DoubleReportError';
 import { InvalidGeminiKeyError } from '@/measures/domain/error/InvalidGeminiKeyError';
