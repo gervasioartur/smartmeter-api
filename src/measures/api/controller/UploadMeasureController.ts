@@ -10,6 +10,7 @@ import { BaseController } from './_BaseController';
 import { Validator } from '../validation/validator/_Validator';
 import { ValidationBuilder } from '../validation/ValidationBuilder';
 import { UploadMeasureResponse } from '../dto/UploadMeasureResponse';
+import { HttpError } from '../http/HttpError';
 
 @ApiTags('Measures')
 @Controller('upload')
@@ -31,7 +32,8 @@ export class UploadMeasureController extends BaseController<UploadMeasureRequest
   async perform(@Body() request: UploadMeasureRequest, @Res() res: Response) {
     try {
       const error = this.validate(request);
-      if (error !== undefined) return res.status(400).send(error.message);
+      if (error !== undefined)
+        return res.status(400).send(new HttpError(error));
 
       const result = await this.usecase.upload({
         image: request.image,
@@ -51,10 +53,10 @@ export class UploadMeasureController extends BaseController<UploadMeasureRequest
         error instanceof InvalidDataError ||
         error instanceof InvalidGeminiKeyError
       )
-        return res.status(400).send(error.message);
+        return res.status(400).send(new HttpError(error));
       else if (error instanceof DoubleReportError)
-        return res.status(409).send(error.message);
-      else return res.status(500).send(error.message);
+        return res.status(409).send(new HttpError(error));
+      else return res.status(500).send(new HttpError(error));
     }
   }
 

@@ -3,9 +3,6 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @Schema()
 export class Measure {
   @Prop()
-  image: string;
-
-  @Prop()
   imageUrl: string;
 
   @Prop()

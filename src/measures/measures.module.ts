@@ -12,6 +12,12 @@ import { LLMUploadService } from './infra/service/LLMUpload.service';
 import { ReadMeasureFromLlmService } from './infra/service/ReadMeasureFromLlm.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Measure, MeasureSchema } from './infra/mongo/Measure';
+import { ConfirmMeasureController } from './api/controller/ConfirmMeasureController';
+import { ConfirmMeasure } from './application/usecase/ConfirmMeasure';
+import { FindMeasureById } from './application/usecase/FindMeasureById';
+import { UpdateMeasure } from './application/usecase/UpdateMeasure';
+import { FindMeasureByIdService } from './infra/service/FindMeasureById.service';
+import { UpdateMeasureService } from './infra/service/UpdateMeasure.service';
 
 @Module({
   imports: [
@@ -22,7 +28,7 @@ import { Measure, MeasureSchema } from './infra/mongo/Measure';
       },
     ]),
   ],
-  controllers: [UploadMeasureController],
+  controllers: [UploadMeasureController, ConfirmMeasureController],
   providers: [
     CreateMeasure,
     IsMeasureRegistered,
@@ -30,10 +36,15 @@ import { Measure, MeasureSchema } from './infra/mongo/Measure';
     LocalUpload,
     ReadMeasureFromLLM,
     UploadMeasure,
+    ConfirmMeasure,
+    FindMeasureById,
+    UpdateMeasure,
     CreateMeasureService,
     IsMeasureRegisteredService,
     LLMUploadService,
     ReadMeasureFromLlmService,
+    FindMeasureByIdService,
+    UpdateMeasureService,
   ],
 })
 export class MeasuresModule {}

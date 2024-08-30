@@ -14,12 +14,10 @@ import { MeasureEntity } from '@/measures/domain/entities/MeasureEntity';
 @Injectable()
 export class UploadMeasure {
   constructor(
-    @Inject(IsMeasureRegistered)
-    private readonly isRegistered: IsMeasureRegistered,
-    @Inject(LocalUpload) private readonly localUpload: LocalUpload,
-    @Inject(LLMUpload) private readonly llmUpload: LLMUpload,
-    @Inject(ReadMeasureFromLLM)
-    private readonly readMeasureFromLLm: ReadMeasureFromLLM,
+    @Inject() private readonly isRegistered: IsMeasureRegistered,
+    @Inject() private readonly localUpload: LocalUpload,
+    @Inject() private readonly llmUpload: LLMUpload,
+    @Inject() private readonly readMeasureFromLLm: ReadMeasureFromLLM,
     @Inject(CreateMeasure) private readonly createMeasure: CreateMeasure,
   ) {}
   async upload(params: UploadMeasureParams): Promise<UploadModel> {
