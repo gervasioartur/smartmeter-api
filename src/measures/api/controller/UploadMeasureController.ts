@@ -7,11 +7,16 @@ import { UploadMeasureParams } from '@/measures/domain/model/models';
 import { InvalidDataError } from '@/measures/domain/error/InvalidDataError';
 import { DoubleReportError } from '@/measures/domain/error/DoubleReportError';
 import { InvalidGeminiKeyError } from '@/measures/domain/error/InvalidGeminiKeyError';
+import { BaseController } from './_BaseController';
+import { Validator } from '../validation/validator/_Validator';
+import { ValidationBuilder } from '../validation/ValidationBuilder';
 
 @ApiTags('Measures')
 @Controller('upload')
-export class UploadMeasureController {
-  constructor(@Inject(UploadMeasure) private usecase: UploadMeasure) {}
+export class UploadMeasureController extends BaseController<UploadMeasureParams> {
+  constructor(@Inject(UploadMeasure) private usecase: UploadMeasure) {
+    super();
+  }
 
   @Post()
   @ApiOperation({ summary: 'Uploads measure' })
@@ -25,6 +30,9 @@ export class UploadMeasureController {
   @ApiResponse({ status: 500, description: 'Internal server error.' })
   async perform(@Body() params: UploadMeasureParams, @Res() res: Response) {
     try {
+      const error = this.validate(params);
+      if (error !== undefined) return res.status(400).send(error.message);
+
       const response = await this.usecase.upload(params);
       res.status(200).send(response);
     } catch (error) {
@@ -37,5 +45,33 @@ export class UploadMeasureController {
         return res.status(409).send(error.message);
       else return res.status(500).send(error.message);
     }
+  }
+
+  protected buildValidators(request: UploadMeasureParams): Validator[] {
+    return [
+      ...ValidationBuilder.of({ fieldValue: request.image, fieldName: 'image' })
+        .required()
+        .base64()
+        .build(),
+      ...ValidationBuilder.of({
+        fieldValue: request.costumerCode,
+        fieldName: 'customer code',
+      })
+        .required()
+        .build(),
+      ...ValidationBuilder.of({
+        fieldValue: request.measureDateTime,
+        fieldName: 'Measure datetime',
+      })
+        .required()
+        .build(),
+      ...ValidationBuilder.of({
+        fieldValue: request.measureType,
+        fieldName: 'Measure type',
+      })
+        .required()
+        .measureType()
+        .build(),
+    ];
   }
 }
