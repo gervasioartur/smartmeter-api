@@ -1,11 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { randomUUID } from 'crypto';
 
 @Schema()
-export class MeasureModel {
-  @Prop({ type: String, unique: true, required: true, default: randomUUID })
-  measureUUId: string;
-
+export class Measure {
   @Prop()
   image: string;
 
@@ -28,4 +24,4 @@ export class MeasureModel {
   hasConfirmed: boolean;
 }
 
-export const MeasureSchema = SchemaFactory.createForClass(MeasureModel);
+export const MeasureSchema = SchemaFactory.createForClass(Measure);

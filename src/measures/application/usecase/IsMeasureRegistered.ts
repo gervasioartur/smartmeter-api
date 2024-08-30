@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IsMeasureRegisteredGateway } from '../gateway/IsMeasureRegisteredGateway';
-import { IsMeasureRegisteredService } from 'src/measures/infra/service/IsMeasureRegistered.service';
-import { IsRegisteredParams } from 'src/measures/domain/model/models';
+import { IsMeasureRegisteredService } from '@/measures/infra/service/IsMeasureRegistered.service';
+import { IsRegisteredParams } from '@/measures/domain/model/models';
 
 @Injectable()
 export class IsMeasureRegistered {

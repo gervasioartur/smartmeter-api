@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { GEMINIAPIKEY } from '../utils/Key';
 import { GoogleAIFileManager } from '@google/generative-ai/server';
-import { LLMUploadGateway } from 'src/measures/application/gateway/LLMUploadGateway';
-import { UploadImageParams } from 'src/measures/domain/model/models';
-import { InvalidGeminiKeyError } from 'src/measures/domain/error/InvalidGeminiKeyError';
+import { LLMUploadGateway } from '@/measures/application/gateway/LLMUploadGateway';
+import { UploadImageParams } from '@/measures/domain/model/models';
+import { InvalidGeminiKeyError } from '@/measures/domain/error/InvalidGeminiKeyError';
 
 @Injectable()
 export class LLMUploadService implements LLMUploadGateway {
-  async upload(params: UploadImageParams): Promise<string> {
-    if (!GEMINIAPIKEY) throw new InvalidGeminiKeyError();
+  private readonly GEMINIAPIKEY = process.env.GEMINI_API_KEY;
 
-    const fileManager = new GoogleAIFileManager(GEMINIAPIKEY);
+  async upload(params: UploadImageParams): Promise<string> {
+    if (!this.GEMINIAPIKEY) throw new InvalidGeminiKeyError();
+
+    const fileManager = new GoogleAIFileManager(this.GEMINIAPIKEY);
     const uploadResponse = await fileManager.uploadFile(params.filePath, {
-      mimeType: 'image/jpeg',
+      mimeType: params.type,
       displayName: params.fileName,
     });
 

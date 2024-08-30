@@ -1,5 +1,5 @@
-import { Measure } from 'src/measures/domain/entities/Measure';
+import { MeasureEntity } from '@/measures/domain/entities/MeasureEntity';
 
 export interface CreateMeasureGateway {
-  create(params: Measure): Promise<Measure>;
+  create(params: MeasureEntity): Promise<MeasureEntity>;
 }

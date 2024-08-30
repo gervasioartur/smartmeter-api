@@ -1,7 +1,7 @@
 import { UUID } from 'crypto';
 
-export class Measure {
-  private measureUUId: UUID;
+export class MeasureEntity {
+  private id: UUID;
   private imageUrl: string;
   private customerCode: string;
   private measureDateTime: Date;
@@ -25,12 +25,12 @@ export class Measure {
     this.hasConfirmed = hasConfirmed;
   }
 
-  public setMeasureUUId(measureUUId: UUID): void {
-    this.measureUUId = measureUUId;
+  public setId(measureUUId: UUID): void {
+    this.id = measureUUId;
   }
 
-  public getMeasureUUId(): UUID | undefined {
-    return this.measureUUId;
+  public getId(): UUID | undefined {
+    return this.id;
   }
 
   public getImageUrl(): string | undefined {

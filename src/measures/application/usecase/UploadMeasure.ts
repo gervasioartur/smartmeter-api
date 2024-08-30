@@ -4,12 +4,12 @@ import { LLMUpload } from './LLMUpload';
 import { ReadMeasureFromLLM } from './ReadMeasureFromLLM';
 import { CreateMeasure } from './CreateMeasure';
 import { IsMeasureRegistered } from './IsMeasureRegistered';
-import { DoubleReportError } from 'src/measures/domain/error/DoubleReportError';
-import { Measure } from 'src/measures/domain/entities/Measure';
 import {
   UploadMeasureParams,
   UploadModel,
-} from 'src/measures/domain/model/models';
+} from '@/measures/domain/model/models';
+import { DoubleReportError } from '@/measures/domain/error/DoubleReportError';
+import { MeasureEntity } from '@/measures/domain/entities/MeasureEntity';
 
 @Injectable()
 export class UploadMeasure {
@@ -22,16 +22,21 @@ export class UploadMeasure {
     private readonly readMeasureFromLLm: ReadMeasureFromLLM,
     @Inject(CreateMeasure) private readonly createMeasure: CreateMeasure,
   ) {}
-
   async upload(params: UploadMeasureParams): Promise<UploadModel> {
     const isRegistered = await this.isRegistered.isRegistered(params);
     if (isRegistered) throw new DoubleReportError();
-    const localFileResult = this.localUpload.upload(params.image);
+
+    const localFileResult = this.localUpload.upload({
+      measureType: params.measureType,
+      base64Image: params.image,
+      costumerCode: params.costumerCode,
+      measureDateTime: params.measureDateTime,
+    });
     const llmFileName = await this.llmUpload.upload(localFileResult);
     const result = await this.readMeasureFromLLm.read(llmFileName);
 
-    let measure = new Measure(
-      result.imageUrl,
+    let measure = new MeasureEntity(
+      localFileResult.fileName,
       params.costumerCode,
       params.measureDateTime,
       params.measureType,
@@ -41,9 +46,9 @@ export class UploadMeasure {
 
     measure = await this.createMeasure.create(measure);
     return {
-      imageUrl: measure.getImageUrl(),
+      imageUrl: `http://${process.env.HOST}:${process.env.PORT}/images/${measure.getImageUrl()}`,
       measureValue: measure.getMeasureValue(),
-      measureUUid: measure.getMeasureUUId(),
+      measureUUid: measure.getId(),
     };
   }
 }

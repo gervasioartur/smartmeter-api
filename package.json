@@ -22,11 +22,13 @@
   "dependencies": {
     "@google/generative-ai": "^0.17.1",
     "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^3.2.3",
     "@nestjs/core": "^10.0.0",
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^10.0.10",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.4.0",
+    "dotenv": "^16.4.5",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "smartmeter-api": "file:"
@@ -60,15 +62,27 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "moduleNameMapper": {
+      "@/test/(.+)": "<rootDir>/test/$1",
+      "@/(.+)": "<rootDir>/src/$1"
+    },
+    "roots": [
+      "<rootDir>/src/",
+      "<rootDir>/test"
+    ],
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "src/**/*.{js,ts}"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
+    "testEnvironment": "node",
+    "clearMocks": true
   }
 }

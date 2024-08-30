@@ -1,6 +1,6 @@
+import { MeasureEntity } from '@/measures/domain/entities/MeasureEntity';
+import { CreateMeasureService } from '@/measures/infra/service/CreateMeasure.service';
 import { Inject, Injectable } from '@nestjs/common';
-import { Measure } from 'src/measures/domain/entities/Measure';
-import { CreateMeasureService } from 'src/measures/infra/service/CreateMeasure.service';
 
 @Injectable()
 export class CreateMeasure {
@@ -8,7 +8,7 @@ export class CreateMeasure {
     @Inject(CreateMeasureService) private readonly gateway: CreateMeasure,
   ) {}
 
-  async create(params: Measure): Promise<Measure> {
-    return await this.create(params);
+  async create(params: MeasureEntity): Promise<MeasureEntity> {
+    return await this.gateway.create(params);
   }
 }

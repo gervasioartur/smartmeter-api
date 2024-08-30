@@ -1,23 +1,31 @@
-import path from 'path';
-import fs from 'fs';
+import * as path from 'path';
+import * as fs from 'fs';
 import { Injectable } from '@nestjs/common';
-import { randomUUID } from 'crypto';
-import { UploadImageParams } from 'src/measures/domain/model/models';
+import {
+  LocalUploadParams,
+  UploadImageParams,
+} from '@/measures/domain/model/models';
 
 @Injectable()
 export class LocalUpload {
-  upload(base64Image: string): UploadImageParams {
-    const matches = base64Image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-    const type = matches[1];
-    const fileBuffer = Buffer.from(matches[2], 'base64');
+  upload(params: LocalUploadParams): UploadImageParams {
+    const publicDirectory = path.join(process.cwd(), 'public/images');
+    if (!fs.existsSync(publicDirectory)) {
+      fs.mkdirSync(publicDirectory, { recursive: true });
+    }
 
-    const fileName = `${randomUUID()}.${type}`;
-    const publicDirectory = path.join(__dirname, '../public');
-    const tempFilePath = path.join(publicDirectory, fileName);
-    fs.writeFileSync(tempFilePath, fileBuffer);
-    return {
-      fileName,
-      filePath: tempFilePath,
-    };
+    const matches = params.base64Image.match(
+      /^data:([A-Za-z-+\/]+);base64,(.+)$/,
+    );
+    const type = matches[1];
+    const date = new Date(params.measureDateTime);
+    const fileName = `${params.measureType}${params.costumerCode}${date.getMonth() + 1}${date.getFullYear()}.${type.split('/')[1]}`;
+    const filePath = path.join(publicDirectory, fileName);
+
+    if (!fs.existsSync(filePath)) {
+      const fileBuffer = Buffer.from(matches[2], 'base64');
+      fs.writeFileSync(filePath, fileBuffer);
+    }
+    return { type, fileName, filePath };
   }
 }

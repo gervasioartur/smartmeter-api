@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { MeasureModel } from '../mongo/MeasureModel';
+import { Measure } from '../mongo/Measure';
 import { Model } from 'mongoose';
-import { IsMeasureRegisteredGateway } from 'src/measures/application/gateway/IsMeasureRegisteredGateway';
-import { IsRegisteredParams } from 'src/measures/domain/model/models';
+import { IsMeasureRegisteredGateway } from '@/measures/application/gateway/IsMeasureRegisteredGateway';
+import { IsRegisteredParams } from '@/measures/domain/model/models';
 
 @Injectable()
 export class IsMeasureRegisteredService implements IsMeasureRegisteredGateway {
   constructor(
-    @InjectModel(MeasureModel.name)
-    private readonly measureModel: Model<MeasureModel>,
+    @InjectModel(Measure.name)
+    private readonly measureModel: Model<Measure>,
   ) {}
 
   async isRegistered(params: IsRegisteredParams): Promise<boolean> {

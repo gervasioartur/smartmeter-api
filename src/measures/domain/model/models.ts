@@ -25,6 +25,14 @@ export type ReadMeasureFromLLMModel = {
 };
 
 export type UploadImageParams = {
+  type: string;
   fileName: string;
   filePath: string;
+};
+
+export type LocalUploadParams = {
+  measureType: string;
+  base64Image: string;
+  costumerCode: string;
+  measureDateTime: Date;
 };

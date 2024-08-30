@@ -1,0 +1,18 @@
+services:
+  smartmeter-database:
+    container_name: smartmeter-database
+    image: mongo
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - smartmeter-network
+  
+volumes:
+  dbdata:
+
+networks:
+  smartmeter-network:
+    driver: bridge

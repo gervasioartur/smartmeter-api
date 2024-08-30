@@ -1,11 +1,12 @@
+import { UploadMeasure } from '@/measures/application/usecase/UploadMeasure';
 import { Body, Controller, Inject, Post, Res } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { UploadMeasure } from 'src/application/usecase/UploadMeasure';
-import { UploadMeasureParams } from 'src/domain/model/models';
 import { UploadMeasureRequest } from '../dto/UploadMeasureRequest';
-import { InvalidDataError } from 'src/domain/error/InvalidDataError';
-import { DoubleReportError } from 'src/domain/error/DoubleReportError';
+import { UploadMeasureParams } from '@/measures/domain/model/models';
+import { InvalidDataError } from '@/measures/domain/error/InvalidDataError';
+import { DoubleReportError } from '@/measures/domain/error/DoubleReportError';
+import { InvalidGeminiKeyError } from '@/measures/domain/error/InvalidGeminiKeyError';
 
 @ApiTags('Measures')
 @Controller('upload')
@@ -27,7 +28,10 @@ export class UploadMeasureController {
       const response = await this.usecase.upload(params);
       res.status(200).send(response);
     } catch (error) {
-      if (error instanceof InvalidDataError)
+      if (
+        error instanceof InvalidDataError ||
+        error instanceof InvalidGeminiKeyError
+      )
         return res.status(400).send(error.message);
       else if (error instanceof DoubleReportError)
         return res.status(409).send(error.message);
