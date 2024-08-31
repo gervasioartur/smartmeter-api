@@ -5,6 +5,7 @@ import { ReadMeasureFromLLMGateway } from '@/measures/application/gateway/ReadMe
 import { ReadMeasureFromLLMModel } from '@/measures/domain/model/models';
 import { InvalidGeminiKeyError } from '@/measures/domain/error/InvalidGeminiKeyError';
 import { InvalidDataError } from '@/measures/domain/error/InvalidDataError';
+import { GeminiModel } from '@/measures/domain/model/GeminiModelEnum';
 
 @Injectable()
 export class ReadMeasureFromLlmService implements ReadMeasureFromLLMGateway {
@@ -16,7 +17,7 @@ export class ReadMeasureFromLlmService implements ReadMeasureFromLLMGateway {
     const fileManager = new GoogleAIFileManager(this.GEMINIAPIKEY);
     const getResponse = await fileManager.getFile(llmFileName);
     const genAI = new GoogleGenerativeAI(this.GEMINIAPIKEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
+    const model = genAI.getGenerativeModel({ model: GeminiModel.MODEL });
 
     const result = await model.generateContent([
       {
