@@ -34,7 +34,7 @@ export class ListCustomerMeasures {
       measureType: measure.getMeasureType(),
       measureValue: measure.getMeasureValue(),
       hasConfirmed: measure.getHasConfirmed(),
-      imageUrl: measure.getImageUrl(),
+      imageUrl: `http://${process.env.HOST}:${process.env.PORT}/images/${measure.getImageUrl()}`,
     };
   }
 }
